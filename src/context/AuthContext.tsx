@@ -1,7 +1,6 @@
 // src/context/AuthContext.tsx
 
-// 🎯 FIX: Add 'type' keyword before 'ReactNode' to resolve the TS1484 error.
-import React, { createContext, useContext, useState, type ReactNode } from 'react'; 
+import React, { createContext, useContext, useState, type ReactNode } from 'react';
 // Ensure the correct imports from your API file
 import { loginAPI, registerAPI, logoutAPI } from '../api/authApi'; 
 import Swal from 'sweetalert2';
@@ -33,8 +32,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             // 1. Call API to get cookie (returns boolean success)
             const success = await loginAPI(username, password); 
             
-            // NOTE: Removed the unused 'success' declaration here to fix TS6133 if it was also erroring
-            
             if (success) {
                 // 2. On success, update local state (Browser handles JSESSIONID cookie)
                 
@@ -57,7 +54,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     const logout = async () => {
         // 1. Call the backend API to invalidate the session
-        const _success = await logoutAPI(); // Renamed to _success to fix TS6133 if it was an error
+        // 🛑 FIX: Removed 'const success = ' since the return value is not used
+        await logoutAPI(); 
 
         // 2. Clear local state and localStorage regardless of backend result (for UI consistency)
         setToken(null);

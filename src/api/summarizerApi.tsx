@@ -1,6 +1,6 @@
 // src/api/summarizerApi.ts
 
-import Swal from 'sweetalert2';
+// 🛑 FIX: Removed unused import: import Swal from 'sweetalert2';
 
 const BASE_URL = "http://localhost:8080/api/v1/text";
 
@@ -9,9 +9,6 @@ export interface SummaryResponse {
     sentenceCount: number;
     wordCount: number;
 }
-
-// NOTE: The getSummaryAPI(id: number) is omitted as it seems unused in the final flow.
-// If it's for fetching history, we can add it later.
 
 // --- 1. Summarize Text API (POST /summarize) ---
 
@@ -74,7 +71,6 @@ export const summarizeFileAPI = async (
         const response = await fetch(`${BASE_URL}/summarize/file`, {
             method: 'POST',
             // 🛑 CRITICAL: DO NOT set the 'Content-Type' header here. 
-            // The browser sets 'multipart/form-data' automatically when using FormData.
             credentials: 'include',
             body: formData, 
         });
@@ -95,8 +91,3 @@ export const summarizeFileAPI = async (
         throw error;
     }
 };
-
-// --- Note on extractTextAPI ---
-// You included extractTextAPI in your SummarizeButton logic, but your backend 
-// combines extraction and summarization into a single endpoint: /summarize/file.
-// Therefore, we removed the separate extractTextAPI and implemented summarizeFileAPI instead.

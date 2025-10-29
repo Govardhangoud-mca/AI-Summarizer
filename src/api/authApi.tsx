@@ -3,16 +3,13 @@
 import Swal from 'sweetalert2';
 
 const BASE_URL = "http://localhost:8080/api/v1/auth";
-const LOGIN_URL = "http://localhost:8080/api/v1/auth/login"; // Use the specific login path if needed, though BASE_URL should suffice.
+const LOGIN_URL = "http://localhost:8080/api/v1/auth/login"; 
 
-interface LoginResponse {
-    message: string;
-}
+// 🛑 FIX: Removed unused interface LoginResponse
 
-// --- REGISTER API (Looks OK, No changes needed) ---
+// --- REGISTER API ---
 
 export const registerAPI = async (username: string, password: string): Promise<boolean> => {
-    // ... (Your existing registerAPI logic is fine)
     try {
         const res = await fetch(`${BASE_URL}/register`, {
             method: "POST",
@@ -34,9 +31,8 @@ export const registerAPI = async (username: string, password: string): Promise<b
     }
 };
 
-// --- CORRECTED LOGIN API (Uses JSON body and credentials: 'include') ---
+// --- LOGIN API ---
 
-// We only need to know if the login succeeded to set the AuthContext state.
 export const loginAPI = async (username: string, password: string): Promise<boolean> => {
     try {
         const res = await fetch(`${LOGIN_URL}`, {
@@ -75,7 +71,7 @@ export const loginAPI = async (username: string, password: string): Promise<bool
     }
 };
 
-// --- LOGOUT API (Needed for Header/AuthContext) ---
+// --- LOGOUT API ---
 
 export const logoutAPI = async (): Promise<boolean> => {
     try {

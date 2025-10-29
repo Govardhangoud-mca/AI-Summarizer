@@ -14,7 +14,7 @@ const DashboardPage: React.FC = () => {
     const [length, setLength] = useState<"short" | "medium" | "long">("medium");
     const [summary, setSummary] = useState("");
     
-    const { user, logout } = useAuth(); 
+    const authContext = useAuth(); 
     
     // We will wrap the content in your standard Layout component
     return (
